@@ -247,11 +247,35 @@
         <div class="dots"><span></span><span></span><span></span></div>
         <span class="card-lang">Lua — Roblox</span>
       </div>
-      <button class="copy-btn" id="copyBtn" onclick="copyScript()">Copy</button>
+      <button class="copy-btn" onclick="handleCopy(this, 'SCRIPT_FLY')">Copy</button>
     </div>
     <div class="card-body">
       <div class="code-line" id="codeLine">
         <span class="kw">loadstring</span><span class="punc">(</span><span class="fn">game</span><span class="punc">:</span><span class="fn">HttpGet</span><span class="punc">(</span><span class="str">"https://raw.githubusercontent.com/kingmagro2525-netizen/yajuhub/main/Qop.Xxc.lua"</span><span class="punc">))()</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LUCKY BLOCK ── -->
+<section class="section">
+  <p class="section-tag">// Script</p>
+  <h2 class="section-title">ラッキーブロックを壊すスクリプト</h2>
+  <p class="section-desc">
+    以下のスクリプトをコピーして、Roblox のスクリプト実行フレームワーク（例：Synapse、SIRHMA など）に貼り付けてください。
+  </p>
+
+  <div class="script-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span class="card-lang">Lua — Roblox</span>
+      </div>
+      <button class="copy-btn" onclick="handleCopy(this, 'SCRIPT_LUCKY')">Copy</button>
+    </div>
+    <div class="card-body">
+      <div class="code-line">
+        <span class="kw">loadstring</span><span class="punc">(</span><span class="fn">game</span><span class="punc">:</span><span class="fn">HttpGet</span><span class="punc">(</span><span class="str">"https://raw.githubusercontent.com/kingmagro2525-netizen/yajuhub/refs/heads/main/L.Block.lua"</span><span class="punc">))()</span>
       </div>
     </div>
   </div>
@@ -263,24 +287,25 @@
 </footer>
 
 <script>
-  const RAW_SCRIPT = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/kingmagro2525-netizen/yajuhub/main/Qop.Xxc.lua"))()';
+  const SCRIPTS = {
+    SCRIPT_FLY:    'loadstring(game:HttpGet("https://raw.githubusercontent.com/kingmagro2525-netizen/yajuhub/main/Qop.Xxc.lua"))()',
+    SCRIPT_LUCKY:  'loadstring(game:HttpGet("https://raw.githubusercontent.com/kingmagro2525-netizen/yajuhub/refs/heads/main/L.Block.lua"))()'
+  };
 
-  function copyScript() {
-    const btn = document.getElementById('copyBtn');
+  function handleCopy(btn, key) {
+    const text = SCRIPTS[key];
 
-    // フォールバック用のコピー
     function fallbackCopy() {
-      const textarea = document.createElement('textarea');
-      textarea.value = RAW_SCRIPT;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.select();
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
       document.execCommand('copy');
-      document.body.removeChild(textarea);
+      document.body.removeChild(ta);
     }
 
-    // コピー完了後のUI更新
     function onCopied() {
       btn.textContent = 'Copied!';
       btn.classList.add('copied');
@@ -291,7 +316,7 @@
     }
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(RAW_SCRIPT).then(onCopied).catch(() => {
+      navigator.clipboard.writeText(text).then(onCopied).catch(() => {
         fallbackCopy();
         onCopied();
       });
