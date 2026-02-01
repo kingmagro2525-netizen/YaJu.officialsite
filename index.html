@@ -7,6 +7,8 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
+  html { overflow-x: hidden; }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -43,6 +45,7 @@
     text-align: center;
     padding: 100px 20px 80px;
     border-bottom: 1px solid var(--border);
+    overflow: hidden;
   }
   .hero::before {
     content: '';
@@ -177,14 +180,14 @@
 
   .card-body {
     padding: 22px 24px;
-    overflow-x: auto;
+    overflow: hidden;
   }
   .code-line {
     font-family: 'Share Tech Mono', monospace;
     font-size: 13px;
     color: #aaa;
-    white-space: pre;
     line-height: 1.8;
+    word-break: break-all;
   }
   .code-line .kw   { color: var(--accent); }
   .code-line .fn   { color: #fff; font-weight: 600; }
