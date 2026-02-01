@@ -266,15 +266,39 @@
   const RAW_SCRIPT = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/kingmagro2525-netizen/yajuhub/main/Qop.Xxc.lua"))()';
 
   function copyScript() {
-    navigator.clipboard.writeText(RAW_SCRIPT).then(() => {
-      const btn = document.getElementById('copyBtn');
+    const btn = document.getElementById('copyBtn');
+
+    // フォールバック用のコピー
+    function fallbackCopy() {
+      const textarea = document.createElement('textarea');
+      textarea.value = RAW_SCRIPT;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+
+    // コピー完了後のUI更新
+    function onCopied() {
       btn.textContent = 'Copied!';
       btn.classList.add('copied');
       setTimeout(() => {
         btn.textContent = 'Copy';
         btn.classList.remove('copied');
-      }, 1600);
-    });
+      }, 1400);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(RAW_SCRIPT).then(onCopied).catch(() => {
+        fallbackCopy();
+        onCopied();
+      });
+    } else {
+      fallbackCopy();
+      onCopied();
+    }
   }
 </script>
 </body>
